@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#b80000">
+<title>Lì xì Tết 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
+
+body{
+  background:
+    radial-gradient(circle at top,#ff5c8a,#7a0000 50%,#120000 80%);
+  animation:bgGlow 12s ease-in-out infinite alternate;
+  font-family:system-ui;
+}
+@keyframes bgGlow{
+  50%{filter:hue-rotate(12deg) brightness(1.1)}
+}
+
+/* ===== LOCK ===== */
+.lock{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:999;
+}
+.lock-box{
+  background:linear-gradient(135deg,#b80000,#ff2e63);
+  padding:30px 36px;
+  border-radius:22px;
+  box-shadow:0 0 50px gold;
+  text-align:center;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-6px)}}
+.lock-box h2{color:gold;margin-bottom:15px}
+.lock-box input{
+  width:160px;padding:12px;
+  font-size:20px;text-align:center;
+  border:none;border-radius:12px;
+}
+.lock-box button{
+  margin-top:15px;
+  padding:10px 26px;
+  border:none;border-radius:30px;
+  background:linear-gradient(135deg,#ffe066,#ffb703);
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 0 20px gold;
+}
+.lock-box p{color:#ffd1dc;margin-top:10px}
+
+/* ===== HOA ===== */
+.flower{
+  position:fixed;top:-40px;font-size:20px;
+  animation:fall linear infinite;
+  pointer-events:none;z-index:0;
+}
+@keyframes fall{to{transform:translateY(120vh) rotate(360deg)}}
+
+/* ===== PHÁO HOA ===== */
+.firework{
+  position:fixed;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:radial-gradient(circle,white,gold,hotpink,red);
+  animation:burst 1.6s ease-out forwards;
+  pointer-events:none;z-index:3;
+}
+@keyframes burst{to{transform:scale(14);opacity:0}}
+
+/* ===== BAO LÌ XÌ ===== */
+.envelope{
+  position:absolute;left:50%;top:60%;
+  width:220px;height:160px;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(135deg,#b80000,#ff2e63);
+  border-radius:22px;
+  box-shadow:0 0 70px gold;
+  cursor:pointer;
+  transition:1s;
+  z-index:5;
+}
+.envelope::before{
+  content:"福";
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:64px;color:gold;
+}
+.lid{
+  position:absolute;inset:0;
+  background:#ff4d6d;
+  clip-path:polygon(0 0,100% 0,50% 55%);
+  transform-origin:top;
+  transition:.8s;
+}
+.envelope.open{opacity:0;transform:translate(-50%,-45%) scale(.85)}
+.envelope.open .lid{transform:rotateX(180deg)}
+
+/* ===== SCENE ===== */
+.scene{
+  position:absolute;left:50%;top:55%;
+  width:100vw;max-width:720px;
+  height:70vh;
+  transform:translate(-50%,-50%);
+}
+
+/* ===== TEXT ===== */
+.text-layer{
+  position:absolute;left:50%;top:55%;
+  width:100%;max-width:720px;
+  height:70vh;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+  z-index:20;
+}
+.wish{
+  position:absolute;top:42%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:22px;font-weight:700;
+  color:#ffd966;
+  text-shadow:0 0 30px gold;
+  opacity:0;transition:1s;
+}
+.wish.show{opacity:1}
+
+.final-text{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:36px;font-weight:900;
+  color:#ffd1dc;
+  text-shadow:0 0 70px #ff5c8a;
+  opacity:0;
+}
+.final-text.show{
+  opacity:1;
+  animation:pulse 1.3s infinite;
+}
+@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.2)}}
+
+/* ===== LỜI NHẮN ===== */
+.secret{
+  position:fixed;
+  top:18%;left:50%;
+  transform:translateX(-50%);
+  font-size:18px;
+  color:#fff;
+  text-shadow:0 0 30px hotpink;
+  opacity:0;
+  filter:blur(6px);
+  transition:1.2s;
+  z-index:30;
+}
+.secret.show{opacity:1;filter:blur(0)}
+
+/* ===== NÚT XEM LẠI ===== */
+.replay{
+  position:fixed;
+  bottom:24px;left:50%;
+  transform:translateX(-50%);
+  padding:10px 26px;
+  border:none;border-radius:30px;
+  background:linear-gradient(135deg,#ffe066,#ffb703);
+  box-shadow:0 0 30px gold;
+  font-weight:700;
+  display:none;
+  z-index:50;
+}
+
+/* ===== CÁ ===== */
+.fish{position:absolute;width:24px;height:14px;transition:1.6s}
+.body{position:absolute;width:18px;height:10px;border-radius:10px;left:6px;top:2px}
+.eye{position:absolute;width:3px;height:3px;background:#000;border-radius:50%;right:4px;top:5px}
+.tail{
+  position:absolute;left:0;top:4px;
+  border-top:4px solid transparent;
+  border-bottom:4px solid transparent;
+  border-right:6px solid #38bdf8;
+  animation:tail .5s infinite alternate;
+}
+@keyframes tail{to{transform:rotate(20deg)}}
+.pink .body{background:linear-gradient(135deg,#ffb3c1,#ff5c8a);box-shadow:0 0 20px #ff5c8a}
+.gold .body{background:linear-gradient(135deg,#ffe066,#ffb703);box-shadow:0 0 30px gold}
+@keyframes heartBeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+/* ===== TRAIL ===== */
+.trail{
+  position:fixed;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle,
+    rgba(255,255,255,.9),
+    rgba(255,182,193,.7),
+    rgba(255,92,138,.4),
+    transparent 70%);
+  animation:trailFade .8s ease-out forwards;
+  z-index:2;
+}
+
+@keyframes trailFade{
+  to{
+    transform:scale(0);
+    opacity:0;
+  }
+}
+.heart-pulse{
+  animation:heartBeat .6s ease-in-out 1;
+}
+@keyframes heartBeat{
+  0%{transform:translate(-50%,-50%) scale(1)}
+  40%{transform:translate(-50%,-50%) scale(1.25)}
+  100%{transform:translate(-50%,-50%) scale(1)}
+}
+
+.light-particle{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff,#ffd966,transparent);
+  pointer-events:none;
+  z-index:4;
+}
+/* ===== TIM ĐẬP + HÀO QUANG ===== */
+.heart-pulse{
+  animation:heartBeat .6s ease-in-out 1;
+}
+@keyframes heartBeat{
+  0%{transform:translate(-50%,-50%) scale(1)}
+  40%{transform:translate(-50%,-50%) scale(1.25)}
+  100%{transform:translate(-50%,-50%) scale(1)}
+}
+
+.heart-glow{
+  position:absolute;
+  left:50%;top:50%;
+  width:320px;height:260px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,#ffb3c155,transparent 70%);
+  filter:blur(18px);
+  opacity:0;
+  animation:glow 2.4s ease-in-out infinite;
+  z-index:4;
+}
+@keyframes glow{
+  50%{opacity:.9}
+}
+
+/* ===== HẠT ÁNH SÁNG ===== */
+.light-particle{
+  position:fixed;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff,#ffd966,transparent);
+  pointer-events:none;
+  z-index:6;
+}
+
+/* ===== CHỮ VIẾT TAY ===== */
+.handwrite{
+  stroke:#ffd1dc;
+  stroke-width:4;
+  fill:none;
+  stroke-dasharray:1200;
+  stroke-dashoffset:1200;
+  animation:write 2.8s ease forwards;
+}
+@keyframes write{
+  to{stroke-dashoffset:0}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="lock" id="lock">
+  <div class="lock-box">
+    <h2>💌 Nhập mật khẩu</h2>
+    <input id="pass" type="password" inputmode="numeric">
+    <br>
+    <button onclick="unlock()">Mở lì xì</button>
+    <p id="err"></p>
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/12/20/audio_6f0e3c0f4a.mp3">
+</audio>
+
+<div class="envelope" id="env"><div class="lid"></div></div>
+<div class="scene" id="scene"></div>
+
+<div class="text-layer">
+  <div class="wish" id="wish">Chúc em năm mới luôn vui vẻ 💕</div>
+  <div class="final-text" id="loveText">ANH YÊU EM RẤT NHIỀU ❤️</div>
+  <div class="final-text" id="finalText">Tết này & mãi về sau em vẫn bên anh nha 💖</div>
+</div>
+
+<div class="secret" id="secret"></div>
+<button class="replay" id="replay" onclick="resetAll()">🔁 Xem lại</button>
+
+<script>
+/* ================== STATE ================== */
+let unlocked = false;
+let state = 0;
+let fishes = [];
+let heartProgress = 0;
+let goldTime = 0;
+
+/* ================== PASSWORD ================== */
+function fullscreen(){
+  const el=document.documentElement;
+  el.requestFullscreen?.() || el.webkitRequestFullscreen?.();
+}
+function unlock(){
+  if(pass.value==="2510"){
+    lock.style.display="none";
+    unlocked=true;
+    fullscreen();
+    showMessage();
+  }else err.textContent="Sai mật khẩu rồi 😝";
+}
+
+/* ================== MESSAGE ================== */
+const messages=[
+ "Có em là đủ cho mọi mùa xuân 💕",
+ "Anh mong năm nào cũng được mở lì xì cho em ❤️",
+ "Ngọc Ánh cười là Tết tới liền đó 🌸",
+ "Tết có thể qua, nhưng thương em thì không 💖",
+ "Người ta đón giao thừa, anh đón em 🥰"
+];
+function showMessage(){
+  secret.textContent=messages[Math.floor(Math.random()*messages.length)];
+  secret.classList.add("show");
+}
+
+/* ================== FIREWORK ================== */
+function firework(){
+  for(let i=0;i<16;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left=25+Math.random()*50+"vw";
+    f.style.top=15+Math.random()*30+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1600);
+  }
+}
+
+/* ================== FISH CREATE ================== */
+function createFishes(){
+  fishes=[];
+  heartProgress=0;
+
+  const corners=[
+    {x:-80,y:-80},
+    {x:innerWidth+80,y:-80},
+    {x:-80,y:scene.clientHeight+80},
+    {x:innerWidth+80,y:scene.clientHeight+80}
+  ];
+
+  for(let i=0;i<80;i++){
+    const f=document.createElement("div");
+    f.className="fish";
+    f.innerHTML='<div class="tail"></div><div class="body"></div><div class="eye"></div>';
+    scene.appendChild(f);
+
+    const c=corners[i%4];
+    fishes.push({
+      el:f,
+      fromX:c.x,
+      fromY:c.y,
+      enter:0,
+      a:Math.random()*6.28,
+      r:200+Math.random()*120,
+      s:.002+Math.random()*.002
+    });
+  }
+}
+
+/* ================== HEART FORM ================== */
+function formHeart(){
+  const cx=innerWidth/2;
+  const cy=scene.clientHeight/2;
+  const scale=14;
+  const hole=60;
+
+  fishes.forEach((f,i)=>{
+    const t=i/fishes.length*6.28;
+    let x=16*Math.sin(t)**3;
+    let y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
+    let px=cx+x*scale;
+    let py=cy-y*scale;
+
+    const dx=px-cx,dy=py-cy;
+    const d=Math.hypot(dx,dy);
+    if(d<hole){
+      const k=hole/d;
+      px=cx+dx*k;
+      py=cy+dy*k;
+    }
+
+    f.el.style.transform=`translate(${px}px,${py}px)`;
+    f.el.classList.add("pink");
+  });
+}
+
+/* ================== TRAIL ================== */
+function spawnTrail(x,y,color="pink"){
+  const t=document.createElement("div");
+  t.className="trail";
+  if(color==="gold"){
+    t.style.background="radial-gradient(circle,white,gold,rgba(255,183,3,.4),transparent 70%)";
+  }
+  t.style.left=x+"px";
+  t.style.top=y+"px";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),800);
+}
+
+/* ================== LIGHT SUCK ================== */
+function suckLight(){
+  const cx=innerWidth/2;
+  const cy=scene.clientHeight/2;
+  for(let i=0;i<40;i++){
+    const p=document.createElement("div");
+    p.className="light-particle";
+    const x=Math.random()*innerWidth;
+    const y=Math.random()*innerHeight;
+    p.style.left=x+"px";
+    p.style.top=y+"px";
+    document.body.appendChild(p);
+    p.animate([
+      {transform:"translate(0,0)",opacity:1},
+      {transform:`translate(${cx-x}px,${cy-y}px)`,opacity:0}
+    ],{duration:700,easing:"ease-in"});
+    setTimeout(()=>p.remove(),700);
+  }
+  loveText.classList.add("heart-pulse");
+}
+
+/* ================== ANIMATE ================== */
+function animate(){
+  const cx=innerWidth/2;
+  const cy=scene.clientHeight/2;
+
+  /* STATE 1: bay từ góc + xoắn */
+  if(state===1){
+    heartProgress=Math.min(1,heartProgress+.006);
+
+    fishes.forEach(f=>{
+      f.enter=Math.min(1,f.enter+.01);
+      f.a+=f.s+heartProgress*.02;
+
+      const xIn=f.fromX+(cx-f.fromX)*f.enter;
+      const yIn=f.fromY+(cy-f.fromY)*f.enter;
+
+      const r=f.r*(1-heartProgress)+150*heartProgress;
+      const xSp=cx+Math.cos(f.a)*r;
+      const ySp=cy+Math.sin(f.a)*r*.55;
+
+      const x=xIn*(1-f.enter)+xSp*f.enter;
+      const y=yIn*(1-f.enter)+ySp*f.enter;
+
+      const rot=Math.atan2(y-yIn,x-xIn)*180/Math.PI;
+      f.el.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`;
+
+      if(Math.random()<.35) spawnTrail(x+12,y+6);
+    });
+  }
+
+  /* STATE 3: cá vàng lượn ending */
+  if(state===3){
+    goldTime+=.008;
+    fishes.forEach((f,i)=>{
+      const a=i/fishes.length*6.28+goldTime*.6;
+      const r=150+Math.sin(goldTime+i)*18;
+      const wave=Math.sin(goldTime*2+i)*10;
+
+      const x=cx+Math.cos(a)*r;
+      const y=cy+Math.sin(a)*r*.6+wave;
+      const rot=Math.atan2(Math.cos(a),-Math.sin(a))*180/Math.PI;
+
+      f.el.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`;
+      if(Math.random()<.25) spawnTrail(x+12,y+6,"gold");
+    });
+  }
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ================== CLICK FLOW ================== */
+addEventListener("click",()=>{
+  if(!unlocked) return;
+
+  if(state===0){
+    secret.classList.remove("show");
+    music.play().catch(()=>{});
+    env.classList.add("open");
+    createFishes();
+    wish.classList.add("show");
+    state=1;
+  }
+  else if(state===1){
+    wish.classList.remove("show");
+    formHeart();
+    loveText.classList.add("show");
+    suckLight();
+    firework();
+    state=2;
+  }
+  else if(state===2){
+    loveText.classList.remove("show");
+    fishes.forEach(f=>{
+      f.el.classList.remove("pink");
+      f.el.classList.add("gold");
+    });
+    finalText.classList.add("show");
+    firework();
+    replay.style.display="block";
+    state=3;
+  }
+});
+
+/* ================== RESET ================== */
+function resetAll(){
+  fishes.forEach(f=>f.el.remove());
+  fishes=[];
+  state=0;
+  env.classList.remove("open");
+  wish.classList.remove("show");
+  loveText.classList.remove("show");
+  finalText.classList.remove("show");
+  replay.style.display="none";
+  showMessage();
+}
+</script>
+
+</body>
+</html>
